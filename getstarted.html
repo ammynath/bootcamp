@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stand-Up - Create Account</title>
-    <link rel="stylesheet" href="./signup.css">
+    <link rel="stylesheet" href="./getstarted.css">
 </head>
 <body>
     <div class="box">
@@ -35,15 +35,6 @@
             </div>
             
             <div class="form-group">
-                <label>Sex</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="sex" value="Male" checked> Male</label>
-                    <label><input type="radio" name="sex" value="Female"> Female</label>
-                    <label><input type="radio" name="sex" value="Other"> Other</label>
-                </div>
-            </div>
-            
-            <div class="form-group">
                 <label for="school">School name</label>
                 <input type="text" id="school" name="school" required>
             </div>
@@ -70,7 +61,6 @@
         const age = document.getElementById('age').value;
         const emailPhone = document.getElementById('emailPhone').value;
         const password = document.getElementById('password').value;
-        const sex = document.querySelector('input[name="sex"]:checked').value;
         const school = document.getElementById('school').value;
         
         const user = {
@@ -78,7 +68,6 @@
             age,
             emailPhone,
             password,
-            sex,
             school
         };
         
@@ -102,7 +91,7 @@
     
     loginLink.addEventListener('click', function(e) {
         e.preventDefault();
-        alert('Login functionality would be implemented here. For now, check the browser console to see stored users.');
+        alert('Login functionality would be designed here. For now, check the browser terminal to see stored users.');
         
         const users = JSON.parse(localStorage.getItem('users'));
         console.log('Stored users:', users);

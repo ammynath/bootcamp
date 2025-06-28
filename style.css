@@ -10,17 +10,21 @@
   flex-direction: column;
   background-color: gray;
   justify-content: center;
+   font-family: "Roboto", sans-serif;
+
 }
 .header {
-  width: 100%;
+  width: 98%;
   height: 70px;
   background-color: #fdf8ee;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+
 .Logo {
-  width: 200px;
+  width: 300px;
   height: 50px;
   display: flex;
   justify-content: center;
@@ -36,6 +40,7 @@
   /* background-color: red; */
   align-items: center;
   text-decoration: none;
+  color: black;
 }
 navs:hover {
     cursor: pointer;
@@ -45,27 +50,29 @@ navs:hover {
 
 a {
   text-decoration: none;
+  
 }
 .signupBtn {
-  width: 100px;
-  height: 50px;
+  padding: 10px 40px;
   background-color: #4d2c5e;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 1 solid #ddd;
-  margin-right: 70%;
+  margin-right: 60%;
   border-radius: 8px;
-  color: white;
+  color: #ffffff;
+
 }
 .signupBtn:hover {
     cursor: pointer;
     transition: all 450ms;
     color: pink;
 }
+
 .loginBtn {
-  width: 400px;
-  height: 45px;
+
+  padding: 10px 40px;
   background-color: #4d2c5e;
   display: flex;
   justify-content: center;
@@ -73,7 +80,7 @@ a {
   border: 1 solid #ddd;
   margin-right: 30px;
   border-radius: 8px;
-  color: #fff;
+  color: #ffffff;
 }
 .hero {
   width: 100%;
@@ -182,12 +189,56 @@ img {
   align-items: start;
   background-color: #fdf8ee;
   padding: 50px;
+  
 }
 .section-B1 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 10px;
+}
+
+.section-zee {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  padding: 40px 0px 40px 0px;
+  
+}
+
+.zee {
+  width: 42%;
+  height: 360px;
+   background-image: url("./Screenshot\ 2025-06-19\ 091511.png");
+   background-repeat: no-repeat;
+   background-size: cover;
+   border-radius: 3px;
+   
+}
+
+.section-zee1 {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  padding: 40px 0px 40px 0px;
+  background-color: #fdf8ee;
+}
+.zeez {
+  width: 42%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.zeepic {
+  width: 42%;
+  height: 360px;
+   background-image: url("./photos/pictures/stop\ bullying.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+   border-radius: 3px;
 }
 
 .text2 p {
@@ -370,3 +421,4 @@ img {
     justify-content: center;
     padding-top: 10%;
 }
+@
