@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stand-Up - Log In</title>
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Stand-Up</h1>
+        <h2>Log in to your account</h2>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="emailPhone">Enter your Email / Phone NO:</label>
+                <input type="text" id="emailPhone" name="emailPhone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Enter Your Passwor</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <p class="forgot-password">
+                <a href="#" id="forgotPassword">Forgot your password? Click here to reset it.</a>
+            </p>
+            
+            <button type="submit" class="submit-btn">Enter</button>
+        </form>
+        
+        <p class="signup-link">Don't have an account yet? <a href="register.html">Sign Up</a></p>
+    </div>
+
+    <script>
+          document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
+    const forgotPasswordLink = document.getElementById('forgotPassword');
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Reset Password</h2>
+            <form id="resetPasswordForm">
+                <div class="form-group">
+                    <label for="resetEmailPhone">Enter your Email / Phone NO:</label>
+                    <input type="text" id="resetEmailPhone" required>
+                </div>
+                <button type="submit" class="submit-btn">Reset Password</button>
+            </form>
+        </div>
+    `});
+    document.body.appendChild(modal);
+    
+    const closeBtn = modal.querySelector('.close');
+    
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const emailPhone = document.getElementById('emailPhone').value;
+        const password = document.getElementById('password').value;
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.emailPhone === emailPhone);
+        
+        if (!user) {
+            alert('No account found with that email/phone!');
+            return;
+        }
+        
+        if (user.password !== password) {
+            alert('Incorrect password!');
+            return;
+        }
+        
+        alert(`Welcome back, ${user.name}!`);
+        window.location.href = 'home.html';
+    });
+    
+    forgotPasswordLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.style.display = 'block';
+    });
+    
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    const resetPasswordForm = modal.querySelector('#resetPasswordForm');
+    resetPasswordForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const resetEmailPhone = document.getElementById('resetEmailPhone').value;
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        
+        const userIndex = users.findIndex(u => u.emailPhone === resetEmailPhone);
+        
+        if (userIndex === -1) {
+            alert('No account found with that email/phone!');
+            return;
+        }
+        
+        alert(`Password reset instructions would be sent to ${resetEmailPhone}`);
+        modal.style.display = 'none';
+    });
+});
+    </script>
+</body>
+</html>

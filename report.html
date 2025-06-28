@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stand-Up Anonymous System Admin Portal</title>
+    <link rel="stylesheet" href="./report.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Stand-Up</h1>
+            <h2>Welcome To Stand-Up Anonymous System Admin Portal</h2>
+            <p class="description">
+                Stand-up anonymous system is a place where you're free to speak up whenever you are been bullied 
+                without revealing the student's identity
+            </p>
+        </header>
+
+        <main>
+            <form id="reportForm">
+                <div class="form-group">
+                    <label for="reportType">What is your report?</label>
+                    <select id="reportType" required>
+                        <option value="">Select report type</option>
+                        <option value="bullying">Bullying</option>
+                        <option value="harassment">Harassment</option>
+                        <option value="discrimination">Discrimination</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="schoolName">Enter the school name:</label>
+                    <input type="text" id="schoolName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="incidentDate">When did this happen?</label>
+                    <input type="date" id="incidentDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="incidentLocation">Where did this happen?</label>
+                    <input type="text" id="incidentLocation" placeholder="e.g., Classroom, Playground, etc." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="incidentDetails">What happened?</label>
+                    <textarea id="incidentDetails" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="incidentCause">What brought the incident?</label>
+                    <textarea id="incidentCause" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="hasWitness">Is there a witness?</label>
+                    <div class="electrical-group">
+                        <label>
+                            <input type="electrical" name="witness" value="yes"> Yes
+                        </label>
+                        <label>
+                            <input type="electrical" name="witness" value="no" checked> No
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="witnessDetailsContainer" style="display: none;">
+                    <label for="witnessDetails">Witness details (optional):</label>
+                    <textarea id="witnessDetails" rows="2"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+
+            <div id="confirmationMessage" class="confirmation" style="display: none;">
+                <h3>Thank you for your report!</h3>
+                <p>Your anonymous report has been submitted successfully.</p>
+                <p>Reference ID: <span id="referenceId"></span></p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('reportForm');
+    const witnessRadioButtons = document.querySelectorAll('input[name="witness"]');
+    const witnessDetailsContainer = document.getElementById('witnessDetailsContainer');
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    
+    witnessRadioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'yes') {
+                witnessDetailsContainer.style.display = 'block';
+            } else {
+                witnessDetailsContainer.style.display = 'none';
+            }
+        });
+    });
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const report = {
+            id: generateId(),
+            type: document.getElementById('reportType').value,
+            school: document.getElementById('schoolName').value,
+            date: document.getElementById('incidentDate').value,
+            location: document.getElementById('incidentLocation').value,
+            details: document.getElementById('incidentDetails').value,
+            cause: document.getElementById('incidentCause').value,
+            hasWitness: document.querySelector('input[name="witness"]:checked').value,
+            witnessDetails: document.getElementById('witnessDetails').value,
+            timestamp: new Date().toISOString()
+        };
+    
+        saveReport(report);
+        
+        document.getElementById('referenceId').textContent = report.id;
+        form.style.display = 'none';
+        confirmationMessage.style.display = 'block';
+        
+        setTimeout(() => {
+            form.reset();
+            form.style.display = 'block';
+            confirmationMessage.style.display = 'none';
+            window.scrollTo(0, 0);
+        }, 10000);
+    });
+
+    function generateId() {
+        return 'RPT-' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5).toUpperCase();
+    }
+
+    function saveReport(report) {
+        let reports = JSON.parse(localStorage.getItem('anonymousReports')) || [];
+        reports.push(report);
+        localStorage.setItem('anonymousReports', JSON.stringify(reports));
+    }
+
+    document.getElementById('incidentDate').valueAsDate = new Date();
+});
+    </script>
+</body>
+</html>

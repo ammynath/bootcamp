@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stand-Up - Create Account</title>
+    <link rel="stylesheet" href="./signup.css">
+</head>
+<body>
+    <div class="box">
+        <h1>Stand-Up</h1>
+        <h2>Create an account</h2>
+        <p class="advice">You are advised to create an account with a valid email address or valid phone number</p>
+        
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Enter your name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Your age</label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="emailPhone">Enter your email / phone NO:</label>
+                <input type="text" id="emailPhone" name="emailPhone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Enter your password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Sex</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="sex" value="Male" checked> Male</label>
+                    <label><input type="radio" name="sex" value="Female"> Female</label>
+                    <label><input type="radio" name="sex" value="Other"> Other</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="school">School name</label>
+                <input type="text" id="school" name="school" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Enter</button>
+        </form>
+        
+        <p class="login-link">Already have an account <a href="#" id="loginLink">Log In</a></p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const registrationForm = document.getElementById('registrationForm');
+    const loginLink = document.getElementById('loginLink');
+    
+    if (!localStorage.getItem('users')) {
+        localStorage.setItem('users', JSON.stringify([]));
+    }
+    
+    registrationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const age = document.getElementById('age').value;
+        const emailPhone = document.getElementById('emailPhone').value;
+        const password = document.getElementById('password').value;
+        const sex = document.querySelector('input[name="sex"]:checked').value;
+        const school = document.getElementById('school').value;
+        
+        const user = {
+            name,
+            age,
+            emailPhone,
+            password,
+            sex,
+            school
+        };
+        
+        const users = JSON.parse(localStorage.getItem('users'));
+        
+        const userExists = users.some(u => u.emailPhone === emailPhone);
+        
+        if (userExists) {
+            alert('An account with this email/phone already exists!');
+            return;
+        }
+        
+        users.push(user);
+        
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        registrationForm.reset();
+        
+        alert('Account created successfully! You can now log in.');
+    });
+    
+    loginLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('Login functionality would be implemented here. For now, check the browser console to see stored users.');
+        
+        const users = JSON.parse(localStorage.getItem('users'));
+        console.log('Stored users:', users);
+    });
+});
+    </script>
+</body>
+</html>
