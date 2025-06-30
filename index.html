@@ -18,7 +18,7 @@
         <div class="navs"><a href="home">Home</a></div>
         <div class="navs"><a href="./about.html">About</a></div>
         <div class="navs"><a href="./report.html">Report</a></div>
-        <button class="loginBtn" onclick="login()">LogIn</a></button>
+        <button class="loginBtn"><a href="./login.html">LogIn</a></button>
       </div>
     </div>
     <div class="section-B">
@@ -42,7 +42,7 @@
           depression.Student are to be safe in the school community. speaking up
           is good but your voice can safe others
         </p>
-        <button class="signupBtn" onclick="signUp()">Get Started</button>
+        <button class="signupBtn"><a href="getstarted.html">Get Started</a></button>
       </div>
 
       <div class="section-B2">
@@ -264,5 +264,20 @@
         <h4>How to work?</h4>
       </div>
     </div>
+    <script>
+    
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute('href').substring(1);
+    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+document.querySelector('.subscribe button').addEventListener('click', () => {
+  alert('Thank you for subscribing!');
+});
+
+    </script>
   </body>
 </html>

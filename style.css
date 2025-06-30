@@ -32,7 +32,7 @@
   /* background-color: red; */
 }
 .navs {
-  width: 350px;
+  width: 400px;
   height: 70px;
   display: flex;
   justify-content: space-evenly;
@@ -48,8 +48,9 @@ navs:hover {
     color: orange;
 }
 
-a {
+.navs a {
   text-decoration: none;
+  color: black;
   
 }
 .signupBtn {
@@ -64,6 +65,10 @@ a {
   color: #ffffff;
 
 }
+.signupBtn a {
+  text-decoration: none;
+  color: white;
+}
 .signupBtn:hover {
     cursor: pointer;
     transition: all 450ms;
@@ -73,6 +78,7 @@ a {
 .loginBtn {
 
   padding: 10px 40px;
+  width: 200px;
   background-color: #4d2c5e;
   display: flex;
   justify-content: center;
@@ -81,6 +87,15 @@ a {
   margin-right: 30px;
   border-radius: 8px;
   color: #ffffff;
+}
+.loginBtn:hover {
+  cursor: pointer;
+  transition: all 450ms;
+  color: orange;
+}
+.loginBtn a {
+  text-decoration: none;
+  color: white;
 }
 .hero {
   width: 100%;
@@ -421,4 +436,24 @@ img {
     justify-content: center;
     padding-top: 10%;
 }
-@
+@media(max-width: 768px) {
+  .hero {
+    flex-direction: column;
+  }
+  .hero3 {
+    flex-direction: column;
+  }
+  .navs {
+    flex-direction: column;
+  }
+  .content {
+    flex-direction: column;
+  }
+  .emaiLInput[type="email"] {
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  .sendBtn {
+    border-radius: 5px;
+  }
+}

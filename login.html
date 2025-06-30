@@ -3,39 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stand-Up - Log In</title>
+    <title>Log In Page</title>
     <link rel="stylesheet" href="./login.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Stand-Up</h1>
-        <h2>Log in to your account</h2>
-        
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="emailPhone">Enter your Email / Phone NO:</label>
-                <input type="text" id="emailPhone" name="emailPhone" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Enter Your Passwor</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <div class="divider"></div>
-            
-            <p class="forgot-password">
-                <a href="#" id="forgotPassword">Forgot your password? Click here to reset it.</a>
-            </p>
-            
-            <button type="submit" class="submit-btn">Enter</button>
-        </form>
-        
-        <p class="signup-link">Don't have an account yet? <a href="register.html">Sign Up</a></p>
-    </div>
+    <div class="login-container">
+    <h1>Stand-up</h1>
+    <p class="subtitle">Log in to your account</p>
+    
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="username">Enter your Email / Phone No:</label>
+        <input type="text" id="username" name="username" required="">
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Enter Your Password</label>
+        <input type="password" id="password" name="password" required="">
+      </div>
+      
+      <a href="#" class="forgot-password">Forgot your password? Click here to reset it.</a>
+      
+      <button type="submit" class="login-btn">Enter</button>
+    </form>
+    
+    <p class="Getstarted-link">Don't have an account yet? <a href="#">Get Started</a></p>
+  </div>
 
-    <script>
-        
-    </script>
+  <script>document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  if (!username || !password) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  const users = JSON.parse(localStorage.getItem('anonymousUsers')) || [];
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    alert('Login successful!');
+    window.location.href = "index.html"
+  } else {
+    alert('Invalid credentials. Please sign up.');
+  }
+});
+
+function storeUser(username, password) {
+  const users = JSON.parse(localStorage.getItem('anonymousUsers')) || [];
+  users.push({ username, password });
+  localStorage.setItem('anonymousUsers', JSON.stringify(users));
+}
+
+</script>
+
 </body>
 </html>
