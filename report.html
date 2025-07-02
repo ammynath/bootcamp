@@ -1,81 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./report.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stand-Up | Report Bullying</title>
+  <link rel="stylesheet" href="./report.css" />
 </head>
 <body>
-    <div class="container">
+  <div class="box-container">
     <header>
-      <h1>Welcome To Stand-Up Anonymous System Admin Portal</h1>
-      <p>A place to report bullying anonymously.</p>
+      <h1>Welcome to Stand-Up Anonymous Reporting Portal</h1>
+      <p>Use the form below to report bullying anonymously.</p>
     </header>
+
     <form id="reportForm">
       <div class="form-group">
         <label for="report">What is your report?</label>
-        <textarea id="report" required="" placeholder="Describe your report..."></textarea>
+        <textarea id="report" required placeholder="Describe your report..."></textarea>
       </div>
+
       <div class="form-group">
-        <label for="school">Enter the school name here:</label>
-        <input type="text" id="school" required="" placeholder="School name">
+        <label for="school">Enter the school name:</label>
+        <input type="text" id="school" required placeholder="e.g., Unity High School" />
       </div>
+
       <div class="form-group">
         <label for="caseDetails">When/Where did this happen?</label>
-        <input type="text" id="caseDetails" required="" placeholder="Time and location">
+        <input type="text" id="caseDetails" required placeholder="e.g., Monday during lunch break in class" />
       </div>
+
       <div class="form-group">
         <label for="description">What happened?</label>
-        <textarea id="description" required="" placeholder="Detailed description"></textarea>
+        <textarea id="description" required placeholder="Provide detailed information about what happened"></textarea>
       </div>
+
       <div class="form-group">
-        <label for="cause">What brought the incident?</label>
-        <textarea id="cause" placeholder="describe the cause of the incident"></textarea>
+        <label for="cause">What caused the incident?</label>
+        <textarea id="cause" placeholder="Describe the cause of the incident (optional)"></textarea>
       </div>
+
       <div class="form-group">
-        <label for="witness">Is there a witness?</label>
-        <input type="text" id="witness" placeholder="Witness name(s) or 'No' or 'yes'">
+        <label for="witness">Was there a witness?</label>
+        <input type="text" id="witness" placeholder="Witness name(s) or simply 'Yes' or 'No'" />
       </div>
-      <button type="submit">Submit</button>
+
+      <button type="submit" class="submit-btn">Submit Report</button>
     </form>
   </div>
-  <script>document.getElementById('reportForm').addEventListener('submit', function (e) {
-  e.preventDefault();
 
-  const reportData = {
-    report: document.getElementById('report').value.trim(),
-    school: document.getElementById('school').value.trim(),
-    incidentDetails: document.getElementById('caseDetails').value.trim(),
-    description: document.getElementById('description').value.trim(),
-    cause: document.getElementById('cause').value.trim(),
-    witness: document.getElementById('witness').value.trim(),
-    timestamp: new Date().toISOString()
-  };
+  <script>
+    document.getElementById('reportForm').addEventListener('submit', function (e) {
+      e.preventDefault();
 
-  if (
-    !reportData.report ||
-    !reportData.school ||
-    !reportData.incidentDetails ||
-    !reportData.description
-  ) {
-    alert('Please fill in all required fields.');
-    return;
-  }
+      const reportData = {
+        report: document.getElementById('report').value.trim(),
+        school: document.getElementById('school').value.trim(),
+        incidentDetails: document.getElementById('caseDetails').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        cause: document.getElementById('cause').value.trim(),
+        witness: document.getElementById('witness').value.trim(),
+        timestamp: new Date().toISOString()
+      };
 
-  saveReport(reportData);
+      if (!reportData.report || !reportData.school || !reportData.incidentDetails || !reportData.description) {
+        alert('Please fill in all required fields.');
+        return;
+      }
 
-  this.reset();
-  alert('Report submitted successfully!');
-  window.location.href = "index.html"
-});
+      saveReport(reportData);
+      this.reset();
+      alert('Report submitted successfully!');
+      window.location.href = 'index.html';
+    });
 
-function saveReport(data) {
-  const reports = JSON.parse(localStorage.getItem('reports')) || [];
-  reports.push(data);
-  localStorage.setItem('reports', JSON.stringify(reports));
-}
-</script>
-
+    function saveReport(data) {
+      const reports = JSON.parse(localStorage.getItem('reports')) || [];
+      reports.push(data);
+      localStorage.setItem('reports', JSON.stringify(reports));
+    }
+  </script>
 </body>
 </html>

@@ -8,7 +8,6 @@
 </head>
 <body>
     <div class="login-container">
-    <h1>Stand-up</h1>
     <p class="subtitle">Log in to your account</p>
     
     <form id="loginForm">
@@ -24,13 +23,14 @@
       
       <a href="#" class="forgot-password">Forgot your password? Click here to reset it.</a>
       
-      <button type="submit" class="login-btn">Enter</button>
+      <button type="submit" class="login-btn">Login</button>
     </form>
     
-    <p class="Getstarted-link">Don't have an account yet? <a href="#">Get Started</a></p>
+    <p class="signup-link">Don't have an account yet? <a href="signup.html">Sign UP</a></p>
   </div>
 
-  <script>document.getElementById('loginForm').addEventListener('submit', function(e) {
+  <script>
+     document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
   const username = document.getElementById('username').value;
@@ -48,7 +48,7 @@
     alert('Login successful!');
     window.location.href = "index.html"
   } else {
-    alert('Invalid credentials. Please sign up.');
+    alert('Invalid credentials. Please create an account.');
   }
 });
 
@@ -58,7 +58,7 @@ function storeUser(username, password) {
   localStorage.setItem('anonymousUsers', JSON.stringify(users));
 }
 
-</script>
+  </script>
 
 </body>
 </html>

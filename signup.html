@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Started Page</title>
+  <link rel="stylesheet" href="./signup.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h2>Create an Account</h2>
+      <p class="info">Use a valid email address or phone number</p>
+    </header>
+
+    <form id="signupForm">
+      <div class="form-group">
+        <label for="contact">Email / Phone Number</label>
+        <input type="text" id="contact" name="contact" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+
+      <div class="form-group">
+        <label>Sex</label>
+        <div class="radio-group">
+          <label><input type="radio" name="sex" value="Male" checked /> Male</label>
+          <label><input type="radio" name="sex" value="Female" /> Female</label>
+          <label><input type="radio" name="sex" value="Other" /> Other</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="school">School Name</label>
+        <input type="text" id="school" name="school" required />
+      </div>
+
+      <button type="submit" class="submit-btn">Enter</button>
+    </form>
+
+    <p class="login-link">Already have an account? <a href="login.html" id="loginLink">Log In</a></p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const signupForm = document.getElementById('signupForm');
+      const loginLink = document.getElementById('loginLink');
+
+      // Create empty array if not already in localStorage
+      if (!localStorage.getItem('anonymousStudents')) {
+        localStorage.setItem('anonymousStudents', JSON.stringify([]));
+      }
+
+      // Generate anonymous ID
+      function generateAnonymousId() {
+        return 'STU-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+      }
+
+      signupForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const contact = document.getElementById('contact').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const sex = document.querySelector('input[name="sex"]:checked')?.value;
+        const school = document.getElementById('school').value.trim();
+
+        if (!contact || !password || !sex || !school) {
+          alert('Please fill in all fields.');
+          return;
+        }
+
+        const student = {
+          id: generateAnonymousId(),
+          contact,
+          password,
+          sex,
+          school,
+          timestamp: new Date().toISOString()
+        };
+
+        const existingStudents = JSON.parse(localStorage.getItem('anonymousStudents'));
+        const contactExists = existingStudents.some(s => s.contact === contact);
+
+        if (contactExists) {
+          alert('This email or phone number is already registered.');
+          return;
+        }
+
+        existingStudents.push(student);
+        localStorage.setItem('anonymousStudents', JSON.stringify(existingStudents));
+
+        alert('Account created successfully! Your anonymous ID is: ' + student.id);
+        signupForm.reset();
+      });
+    });
+  </script>
+</body>
+</html>
